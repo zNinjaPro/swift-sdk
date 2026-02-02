@@ -34,6 +34,42 @@ public enum Constants {
     
     /// Default finalization delay after epoch ends (~1 day)
     public static let defaultFinalizationDelaySlots: UInt64 = 216_000
+    
+    /// Default burn rate in basis points (10 = 0.1%)
+    public static let defaultBurnRateBps: UInt16 = 10
+}
+
+// MARK: - Burn Calculation Utilities
+
+/// Calculate the burn amount for a given transaction amount
+/// - Parameters:
+///   - amount: The transaction amount (deposit or withdraw)
+///   - burnRateBps: Burn rate in basis points (10 = 0.1%)
+/// - Returns: The amount that will be burned
+public func calculateBurnAmount(_ amount: UInt64, burnRateBps: UInt16) -> UInt64 {
+    return (amount * UInt64(burnRateBps)) / 10000
+}
+
+/// Calculate the amount after burn (what the user actually receives/credits)
+/// - Parameters:
+///   - amount: The transaction amount (deposit or withdraw)
+///   - burnRateBps: Burn rate in basis points (10 = 0.1%)
+/// - Returns: The amount after burn is deducted
+public func calculateAmountAfterBurn(_ amount: UInt64, burnRateBps: UInt16) -> UInt64 {
+    let burnAmount = calculateBurnAmount(amount, burnRateBps: burnRateBps)
+    return amount - burnAmount
+}
+
+/// Calculate the gross amount needed to receive a specific net amount after burn
+/// - Parameters:
+///   - netAmount: The desired net amount after burn
+///   - burnRateBps: Burn rate in basis points (10 = 0.1%)
+/// - Returns: The gross amount needed (before burn)
+public func calculateGrossAmount(_ netAmount: UInt64, burnRateBps: UInt16) -> UInt64 {
+    // netAmount = grossAmount - (grossAmount * burnRate / 10000)
+    // netAmount = grossAmount * (10000 - burnRate) / 10000
+    // grossAmount = netAmount * 10000 / (10000 - burnRate)
+    return (netAmount * 10000) / UInt64(10000 - burnRateBps)
 }
 
 /// Epoch state enum matching on-chain representation

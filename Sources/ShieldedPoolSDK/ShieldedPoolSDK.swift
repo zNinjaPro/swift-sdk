@@ -34,6 +34,9 @@ public struct ShieldedPoolConfig: Sendable {
     /// Token mint address
     public let tokenMint: String
     
+    /// Burn rate in basis points (10 = 0.1%)
+    public let burnRateBps: UInt16
+    
     /// Path to withdraw circuit zkey
     public let withdrawZkeyPath: String
     
@@ -59,6 +62,7 @@ public struct ShieldedPoolConfig: Sendable {
         programId: String,
         poolConfig: String,
         tokenMint: String,
+        burnRateBps: UInt16 = 10,
         withdrawZkeyPath: String,
         transferZkeyPath: String,
         renewZkeyPath: String? = nil,
@@ -69,6 +73,7 @@ public struct ShieldedPoolConfig: Sendable {
         self.programId = programId
         self.poolConfig = poolConfig
         self.tokenMint = tokenMint
+        self.burnRateBps = burnRateBps
         self.withdrawZkeyPath = withdrawZkeyPath
         self.transferZkeyPath = transferZkeyPath
         self.renewZkeyPath = renewZkeyPath
@@ -80,6 +85,7 @@ public struct ShieldedPoolConfig: Sendable {
         programId: String,
         poolConfig: String,
         tokenMint: String,
+        burnRateBps: UInt16 = 10,
         zkeyBasePath: String
     ) -> ShieldedPoolConfig {
         return ShieldedPoolConfig(
@@ -88,6 +94,7 @@ public struct ShieldedPoolConfig: Sendable {
             programId: programId,
             poolConfig: poolConfig,
             tokenMint: tokenMint,
+            burnRateBps: burnRateBps,
             withdrawZkeyPath: "\(zkeyBasePath)/withdraw.zkey",
             transferZkeyPath: "\(zkeyBasePath)/transfer.zkey",
             renewZkeyPath: "\(zkeyBasePath)/renew.zkey",
@@ -100,6 +107,7 @@ public struct ShieldedPoolConfig: Sendable {
         programId: String,
         poolConfig: String,
         tokenMint: String,
+        burnRateBps: UInt16 = 10,
         zkeyBasePath: String
     ) -> ShieldedPoolConfig {
         return ShieldedPoolConfig(
@@ -108,6 +116,7 @@ public struct ShieldedPoolConfig: Sendable {
             programId: programId,
             poolConfig: poolConfig,
             tokenMint: tokenMint,
+            burnRateBps: burnRateBps,
             withdrawZkeyPath: "\(zkeyBasePath)/withdraw.zkey",
             transferZkeyPath: "\(zkeyBasePath)/transfer.zkey",
             renewZkeyPath: "\(zkeyBasePath)/renew.zkey",
