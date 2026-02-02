@@ -1,0 +1,39 @@
+{
+  "poseidon": [
+    {
+      "name": "single_input_0x01",
+      "inputs": [
+        "0101010101010101010101010101010101010101010101010101010101010101"
+      ],
+      "output": "05bface581ee6177cc19c6c56363a68882f11e8407ac639db991e0d27f1b75e6"
+    },
+    {
+      "name": "single_input_zeros",
+      "inputs": [
+        "0000000000000000000000000000000000000000000000000000000000000000"
+      ],
+      "output": "2a09a9fd93c590c26b91effbb2499f07e8f7aa12e2b4940a3aed2411cb65e11c"
+    },
+    {
+      "name": "two_inputs",
+      "inputs": [
+        "0101010101010101010101010101010101010101010101010101010101010101",
+        "0202020202020202020202020202020202020202020202020202020202020202"
+      ],
+      "output": "0d54e1938f8a8c1c7deb5e0355f26319207b84fe9ca2ce1b26e735c829821990"
+    },
+    {
+      "name": "commitment_style",
+      "inputs": [
+        "0000000000000000000000000000000000000000000000000000000000000064",
+        "abababababababababababababababababababababababababababababababab",
+        "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+      ],
+      "output": "0b93b96be23efa39695e7bc94460808d928d601013535d10a166517dc35d7757"
+    }
+  ],
+  "merkle": {
+    "depth": 12,
+    "zeroValue": "2a09a9fd93c590c26b91effbb2499f07e8f7aa12e2b4940a3aed2411cb65e11c"
+  }
+}

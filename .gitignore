@@ -1,0 +1,17 @@
+# Swift Package Manager
+.build/
+
+# Xcode
+DerivedData/
+*.xcodeproj/
+*.xcworkspace/
+*.xcuserstate
+
+# SwiftPM resolution (often not committed for libraries)
+Package.resolved
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
