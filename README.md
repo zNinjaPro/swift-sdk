@@ -34,10 +34,10 @@ Or in Xcode: File → Add Package Dependencies → Enter repository URL.
 
 ### Modules
 
-| Module | Description | Dependencies |
-|--------|-------------|--------------|
+| Module             | Description                               | Dependencies                                |
+| ------------------ | ----------------------------------------- | ------------------------------------------- |
 | `ShieldedPoolCore` | Crypto primitives, types, prover, scanner | BigInt, rapidsnark (iOS), witnesscalc (iOS) |
-| `ShieldedPoolSDK` | Full Solana client | ShieldedPoolCore, SolanaSwift |
+| `ShieldedPoolSDK`  | Full Solana client                        | ShieldedPoolCore, SolanaSwift               |
 
 Use `ShieldedPoolCore` alone if you only need crypto operations (Poseidon, Merkle, key derivation) without Solana RPC.
 
@@ -232,6 +232,7 @@ scanner.processEventData(eventData)
 ```
 
 Supported events (V2 epoch-aware):
+
 - `DepositV2` — new shielded deposit
 - `WithdrawV2` — withdrawal from pool
 - `TransferV2` — shielded transfer
@@ -362,12 +363,12 @@ The SDK requires circuit artifacts for ZK proof generation. These are **not** in
 
 ### Required Files
 
-| File | Size (approx) | Purpose |
-|------|---------------|---------|
-| `withdraw_final.zkey` | ~25MB | Withdraw proving key |
-| `transfer_final.zkey` | ~45MB | Transfer proving key |
-| `withdraw.wcd` | ~5MB | Withdraw witness graph (iOS native) |
-| `transfer.wcd` | ~5MB | Transfer witness graph (iOS native) |
+| File                  | Size (approx) | Purpose                             |
+| --------------------- | ------------- | ----------------------------------- |
+| `withdraw_final.zkey` | ~25MB         | Withdraw proving key                |
+| `transfer_final.zkey` | ~45MB         | Transfer proving key                |
+| `withdraw.wcd`        | ~5MB          | Withdraw witness graph (iOS native) |
+| `transfer.wcd`        | ~5MB          | Transfer witness graph (iOS native) |
 
 ### Delivery Options
 
@@ -413,6 +414,7 @@ Epoch 0          Epoch 1          Epoch 2
 ```
 
 **Default timing (configurable):**
+
 - Epoch duration: ~2 weeks (3,024,000 slots)
 - Finalization delay: ~1 day (216,000 slots)
 - Expiry grace: ~6 months (38,880,000 slots)
@@ -423,44 +425,44 @@ Notes in expiring epochs should be renewed using `prepareRenewals()`.
 
 ### Core Types
 
-| Type | Description |
-|------|-------------|
-| `Note` | UTXO in the pool (value, owner, commitment, nullifier, epoch, etc.) |
-| `SpendingKeys` | Master seed + spending/viewing/nullifier keys + shielded address |
-| `MerkleProof` | Inclusion proof (leaf, index, siblings, root, epoch) |
-| `BalanceInfo` | Balance breakdown (total, spendable, pending, expiring, expired) |
-| `Groth16Proof` | ZK proof (pi_a, pi_b, pi_c as Data) |
-| `ProverOutput` | Proof + public inputs |
-| `EpochState` | `.active`, `.frozen`, `.finalized` |
-| `EpochInfo` | Full epoch metadata |
+| Type           | Description                                                         |
+| -------------- | ------------------------------------------------------------------- |
+| `Note`         | UTXO in the pool (value, owner, commitment, nullifier, epoch, etc.) |
+| `SpendingKeys` | Master seed + spending/viewing/nullifier keys + shielded address    |
+| `MerkleProof`  | Inclusion proof (leaf, index, siblings, root, epoch)                |
+| `BalanceInfo`  | Balance breakdown (total, spendable, pending, expiring, expired)    |
+| `Groth16Proof` | ZK proof (pi_a, pi_b, pi_c as Data)                                 |
+| `ProverOutput` | Proof + public inputs                                               |
+| `EpochState`   | `.active`, `.frozen`, `.finalized`                                  |
+| `EpochInfo`    | Full epoch metadata                                                 |
 
 ### Transaction Types
 
-| Type | Description |
-|------|-------------|
-| `PreparedDeposit` | Ready-to-sign deposit (commitment, encrypted note, instruction data) |
-| `PreparedWithdraw` | Ready-to-sign withdrawal (proof, nullifiers, instruction data) |
-| `PreparedTransfer` | Ready-to-sign transfer (proof, nullifiers, output commitments) |
-| `PreparedRenew` | Ready-to-sign renewal (old nullifier, new commitment, proof) |
+| Type               | Description                                                          |
+| ------------------ | -------------------------------------------------------------------- |
+| `PreparedDeposit`  | Ready-to-sign deposit (commitment, encrypted note, instruction data) |
+| `PreparedWithdraw` | Ready-to-sign withdrawal (proof, nullifiers, instruction data)       |
+| `PreparedTransfer` | Ready-to-sign transfer (proof, nullifiers, output commitments)       |
+| `PreparedRenew`    | Ready-to-sign renewal (old nullifier, new commitment, proof)         |
 
 ### Error Types
 
-| Error | Description |
-|-------|-------------|
-| `ShieldedPoolError` | SDK-level errors (invalid address, insufficient balance, etc.) |
-| `ProverError` | Proof generation errors (framework not integrated, witness failed) |
-| `ArtifactError` | Circuit artifact errors (not configured, download failed) |
-| `ScannerError` | Event scanning errors (invalid data, decryption failed) |
-| `Poseidon.PoseidonError` | Hash errors (invalid input count, missing params) |
+| Error                    | Description                                                        |
+| ------------------------ | ------------------------------------------------------------------ |
+| `ShieldedPoolError`      | SDK-level errors (invalid address, insufficient balance, etc.)     |
+| `ProverError`            | Proof generation errors (framework not integrated, witness failed) |
+| `ArtifactError`          | Circuit artifact errors (not configured, download failed)          |
+| `ScannerError`           | Event scanning errors (invalid data, decryption failed)            |
+| `Poseidon.PoseidonError` | Hash errors (invalid input count, missing params)                  |
 
 ## Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| [BigInt](https://github.com/attaswift/BigInt) | 5.4+ | BN254 field arithmetic for Poseidon |
-| [SolanaSwift](https://github.com/p2p-org/solana-swift) | 5.0+ | Solana RPC, transactions, key management |
-| [ios-rapidsnark](https://github.com/iden3/ios-rapidsnark) | 0.0.1-beta.4 | Native Groth16 prover (iOS only) |
-| [circom-witnesscalc-swift](https://github.com/iden3/circom-witnesscalc-swift) | 0.0.1-alpha.3 | Native witness generation (iOS only) |
+| Package                                                                       | Version       | Purpose                                  |
+| ----------------------------------------------------------------------------- | ------------- | ---------------------------------------- |
+| [BigInt](https://github.com/attaswift/BigInt)                                 | 5.4+          | BN254 field arithmetic for Poseidon      |
+| [SolanaSwift](https://github.com/p2p-org/solana-swift)                        | 5.0+          | Solana RPC, transactions, key management |
+| [ios-rapidsnark](https://github.com/iden3/ios-rapidsnark)                     | 0.0.1-beta.4  | Native Groth16 prover (iOS only)         |
+| [circom-witnesscalc-swift](https://github.com/iden3/circom-witnesscalc-swift) | 0.0.1-alpha.3 | Native witness generation (iOS only)     |
 
 > ⚠️ rapidsnark and circom-witnesscalc are pre-release. They compile conditionally on iOS only.
 
@@ -478,25 +480,26 @@ swift test --filter PoseidonTests
 
 **156 tests passing** across 11 test files (zero warnings, zero failures):
 
-| Suite | Tests | Coverage |
-|-------|-------|----------|
-| PoseidonTests | 12 | Hash widths 2-5, edge cases, field overflow |
-| CrossValidationTests | 14 | All crypto cross-validated vs TS SDK |
-| CryptoTests | 18 | Commitment, nullifier, serialization, encryption |
-| KeyManagerTests | 7 | Key derivation, Base58, export |
-| NoteManagerTests | 24 | Note lifecycle, balance, selection, epoch expiry |
-| EventParserTests | 16 | All V2 event types, discriminators |
-| ProverTests | 12 | Config, proof parsing, input types |
-| IntegrationTests | 18 | Full lifecycle, event scanner, cross-epoch flows |
-| BorshSerializeTests | 15 | Borsh encoding (u8/u32/u64, bytes, Vec, strings) |
-| InstructionTests | 12 | Discriminators, data layouts, account counts |
-| PDATests | 11 | PDA derivation, determinism, uniqueness |
+| Suite                | Tests | Coverage                                         |
+| -------------------- | ----- | ------------------------------------------------ |
+| PoseidonTests        | 12    | Hash widths 2-5, edge cases, field overflow      |
+| CrossValidationTests | 14    | All crypto cross-validated vs TS SDK             |
+| CryptoTests          | 18    | Commitment, nullifier, serialization, encryption |
+| KeyManagerTests      | 7     | Key derivation, Base58, export                   |
+| NoteManagerTests     | 24    | Note lifecycle, balance, selection, epoch expiry |
+| EventParserTests     | 16    | All V2 event types, discriminators               |
+| ProverTests          | 12    | Config, proof parsing, input types               |
+| IntegrationTests     | 18    | Full lifecycle, event scanner, cross-epoch flows |
+| BorshSerializeTests  | 15    | Borsh encoding (u8/u32/u64, bytes, Vec, strings) |
+| InstructionTests     | 12    | Discriminators, data layouts, account counts     |
+| PDATests             | 11    | PDA derivation, determinism, uniqueness          |
 
 All Poseidon, commitment, nullifier, and Merkle tree outputs are cross-validated against the TypeScript SDK.
 
 ## Development Status
 
 ### Completed
+
 - ✅ Build verification (Swift 6.0, Xcode 26.2, zero warnings)
 - ✅ Poseidon hash (BN254, widths 2-5) with cross-validated test vectors
 - ✅ Merkle tree (epoch-based, depth 12)
@@ -515,6 +518,7 @@ All Poseidon, commitment, nullifier, and Merkle tree outputs are cross-validated
 - ✅ Comprehensive test suite (156 tests — unit, cross-validation, integration, serialization)
 
 ### TODO
+
 - [ ] Live on-chain test against solana-test-validator
 - [ ] iOS device testing + native ZK proving performance
 - [ ] State persistence (save/restore NoteManager)
